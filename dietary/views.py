@@ -1,9 +1,11 @@
 from django.views.generic.base import TemplateView
+from django.shortcuts import render
 
-from dietary.models import DietaryItem
 from django.http import HttpResponse
-
 from django.template import loader
+
+from .models import DietaryItem
+from .filters import DietaryItemFilter
 
 FACILITIES = ['Lander', 'Riverton']
 DEPARTMENTS = ['Radiology', 'Therapy', 'Workwise', 'Lab', 'ER', 'Rehab', 'Surgery', 'OPSC', 'OB', 'ICU', 'Cardiac Rehab', 'Med Surg']
@@ -11,12 +13,15 @@ DEPARTMENTS = ['Radiology', 'Therapy', 'Workwise', 'Lab', 'ER', 'Rehab', 'Surger
 
 def index(request):
     template = loader.get_template('dietary/index.html')
+    dietary_items = DietaryItem.objects.all()
+    filter_set = DietaryItemFilter(request.GET, queryset=dietary_items)
     context = {
         'facilities': FACILITIES,
         'departments': DEPARTMENTS,
         'dietary_items': DietaryItem.objects.all(),
+        'dietary_filter': filter_set,
     } 
-    return HttpResponse(template.render(context, request))
+    return render(request, 'dietary/index.html')
 
 
 class Orders(TemplateView):

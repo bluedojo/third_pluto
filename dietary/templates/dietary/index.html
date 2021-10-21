@@ -41,6 +41,14 @@
               </select>
             </div>
 
+            <!-- Search -->
+            <div class="input-group input-group-lg">
+                <input type="search" class="form-control" id="search" aria-describedby="search for dietary item" placeholder="Search...">
+                  <div class="input-group-append">
+                    <button class="input-group-text btn-lg btn btn-outline-primary" type="button">Search</search>
+                  </div>
+            </div>
+
             <!-- Dietary Item Table -->
             <table class="table">
               <thead>
@@ -54,7 +62,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for dietary_item in dietary_items %}
+                {% for dietary_item in dietary_filter %}
                     <tr>
                       <td>{{ dietary_item.title }}</td>
                       <td>{{ dietary_item.cost }}</td>
