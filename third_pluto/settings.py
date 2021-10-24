@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dietary',
     'django_filters',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [

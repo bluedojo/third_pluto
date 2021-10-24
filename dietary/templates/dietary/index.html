@@ -62,7 +62,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% for dietary_item in dietary_filter %}
+                {% for dietary_item in filtered_items.qs %}
                     <tr>
                       <td>{{ dietary_item.title }}</td>
                       <td>{{ dietary_item.cost }}</td>

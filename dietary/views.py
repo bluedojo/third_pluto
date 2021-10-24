@@ -21,7 +21,7 @@ def index(request):
         'dietary_items': DietaryItem.objects.all(),
         'dietary_filter': filter_set,
     } 
-    return render(request, 'dietary/index.html')
+    return render(request, 'dietary/index.html', { 'filtered_items': filter_set })
 
 
 class Orders(TemplateView):
