@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 class DietaryItem(models.Model):
     # Define Dietary items
-    title = models.CharField(max_length=75)
+    title = models.CharField(max_length=100)
     cost = models.DecimalField(max_digits=5, decimal_places=2)
     unit = models.CharField(max_length=20)
     shelf_life = models.CharField(max_length=30)

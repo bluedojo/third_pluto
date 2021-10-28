@@ -1,33 +1,27 @@
-from django.views.generic.base import TemplateView
 from django.shortcuts import render
-
 from django.http import HttpResponse
-from django.template import loader
 
-from .models import DietaryItem
-from .filters import DietaryItemFilter
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-FACILITIES = ['Lander', 'Riverton']
-DEPARTMENTS = ['Radiology', 'Therapy', 'Workwise', 'Lab', 'ER', 'Rehab', 'Surgery', 'OPSC', 'OB', 'ICU', 'Cardiac Rehab', 'Med Surg']
-
-
-def index(request):
-    template = loader.get_template('dietary/index.html')
-    dietary_items = DietaryItem.objects.all()
-    filter_set = DietaryItemFilter(request.GET, queryset=dietary_items)
-    context = {
-        'facilities': FACILITIES,
-        'departments': DEPARTMENTS,
-        'dietary_items': DietaryItem.objects.all(),
-        'dietary_filter': filter_set,
-    } 
-    return render(request, 'dietary/index.html', { 'filtered_items': filter_set })
+from .serializers import DietaryItemSerializer, OrderSerializer
+from .models import DietaryItem, Order
 
 
-class Orders(TemplateView):
-    template_name = "orders.html"
+@api_view(['GET'])
+def dietary_item_collection(request):
+    if request.method == 'GET':
+        dietary_items = DietaryItem.objects.all()
+        serializer = DietaryItemSerializer(dietary_items, many=True)
+        return Response(serializer.data)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['dietary_items'] = DietaryItem.objects.all()
+
+@api_view(['GET'])
+def dietary(request):
+    if request.method == 'GET':
+        dietary_items = DietaryItem.objects.all()
+        serializer = DietaryItemSerializer(dietary_items, many=True)
+        return Response(serializer.data)
+
+
 

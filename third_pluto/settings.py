@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-s7z=(v^@xx_j+ae_^al8^_y9%qe_g3)#x0by&v#=i^85mppei0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1:3000', 'http://localhost:3000']
 
 
 # Application definition
@@ -38,13 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'dietary',
-    'django_filters',
     'rest_framework',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -72,6 +73,9 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'third_pluto.wsgi.application'
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
